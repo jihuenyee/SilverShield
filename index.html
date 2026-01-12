@@ -211,6 +211,25 @@
         </div>
     </footer>
 
+    <!-- Chatbot Widget -->
+    <div id="chatbot-widget" class="chatbot-widget" aria-label="Scam Detection Chatbot Assistant">
+        <div class="chatbot-header" role="banner">
+            <span class="chatbot-icon" aria-hidden="true">🛡️</span>
+            <span class="chatbot-title">AI Scam Assistant</span>
+            <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Minimize chatbot" type="button">
+                <span aria-hidden="true">-</span>
+            </button>
+        </div>
+        <div class="chatbot-content" role="region" aria-label="Chat area">
+            <iframe
+                id="flowise-chatbot"
+                src="https://your-flowise-instance.com/chatbot"
+                title="SilverShield Scam Detection AI Chatbot"
+                allow="microphone; camera"
+            ></iframe>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/app.js"></script>
 </body>

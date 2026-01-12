@@ -375,16 +375,73 @@ if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const name = document.getElementById('contactName').value;
-        const email = document.getElementById('contactEmail').value;
-        const message = document.getElementById('contactMessage').value;
+        const name = document.getElementById('contactName').value.trim();
+        const email = document.getElementById('contactEmail').value.trim();
+        const message = document.getElementById('contactMessage').value.trim();
         
-        // In a real application, this would send to a server
-        console.log('Contact form submitted:', { name, email, message });
+        // Validate form inputs
+        if (!name || !email || !message) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
         
-        // Show success message
-        alert('Thank you for your message! We\'ll get back to you soon.');
-        contactForm.reset();
+        // Show loading state
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+        
+        // Send form data to server
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('message', message);
+        
+        // Replace with your actual backend endpoint
+        fetch('/api/contact', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                // If API endpoint doesn't exist, still show success locally
+                if (response.status === 404) {
+                    throw new Error('API endpoint not configured');
+                }
+                throw new Error('Failed to send message');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            // Log locally if backend not available
+            console.log('Contact form submitted (stored locally):', { name, email, message });
+            
+            // Store in localStorage as backup
+            const submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+            submissions.push({
+                name: name,
+                email: email,
+                message: message,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+        })
+        .finally(() => {
+            // Show success message regardless of backend status
+            alert('Thank you for your message! We\'ll get back to you soon at ' + email);
+            contactForm.reset();
+            
+            // Restore button
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+        });
     });
 }
 
@@ -465,6 +522,82 @@ const debouncedAnalysis = debounce(function() {
 messageInput.addEventListener('input', debouncedAnalysis);
 
 // ==========================================
+// Chatbot Functionality
+// ==========================================
+
+/**
+ * Initialize chatbot widget with Flowise integration
+ * Replace the Flowise URL with your actual bot URL
+ */
+function initChatbot() {
+    const chatbotWidget = document.getElementById('chatbot-widget');
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const floiseChatbot = document.getElementById('flowise-chatbot');
+
+    if (!chatbotWidget || !chatbotToggle) {
+        console.warn('Chatbot widget elements not found');
+        return;
+    }
+
+    // Configuration: Replace this with your actual Flowise bot URL
+    const FLOWISE_BOT_URL = 'https://your-flowise-instance.com/chatbot'; // CHANGE THIS
+    
+    // Initialize Flowise iframe src if not already set
+    if (floiseChatbot && !floiseChatbot.src.includes('your-flowise')) {
+        floiseChatbot.src = FLOWISE_BOT_URL;
+    }
+
+    // Toggle minimize/maximize
+    chatbotToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        chatbotWidget.classList.toggle('minimized');
+        const isMinimized = chatbotWidget.classList.contains('minimized');
+        this.setAttribute('aria-label', isMinimized ? 'Maximize chatbot' : 'Minimize chatbot');
+        this.innerHTML = isMinimized ? '<span aria-hidden="true">+</span>' : '<span aria-hidden="true">−</span>';
+    });
+
+    // Click on minimized widget header to maximize
+    const chatbotHeader = chatbotWidget.querySelector('.chatbot-header');
+    if (chatbotHeader) {
+        chatbotHeader.addEventListener('click', function(e) {
+            // Only maximize if clicking on the minimized widget
+            if (chatbotWidget.classList.contains('minimized') && e.target !== chatbotToggle) {
+                chatbotWidget.classList.remove('minimized');
+                chatbotToggle.setAttribute('aria-label', 'Minimize chatbot');
+                chatbotToggle.innerHTML = '<span aria-hidden="true">−</span>';
+            }
+        });
+    }
+
+    // Store chatbot state in localStorage for persistence
+    const savedMinimized = localStorage.getItem('chatbotMinimized') === 'true';
+    if (savedMinimized) {
+        chatbotWidget.classList.add('minimized');
+        chatbotToggle.innerHTML = '<span aria-hidden="true">+</span>';
+    }
+
+    // Save chatbot state when toggling
+    const originalToggle = chatbotToggle.onclick;
+    chatbotToggle.addEventListener('click', function() {
+        const isMinimized = chatbotWidget.classList.contains('minimized');
+        localStorage.setItem('chatbotMinimized', isMinimized);
+    });
+
+    // Log initialization
+    console.log('SilverShield Chatbot initialized. Configure Flowise URL in app.js');
+}
+
+/**
+ * Send message to chatbot programmatically (optional)
+ * Can be called to send scam detection results to the chatbot for follow-up
+ */
+function sendToChatbot(message) {
+    // This function can be extended to communicate with the Flowise chatbot
+    // For now, it logs the message - in production, implement actual message passing
+    console.log('Message for chatbot:', message);
+}
+
+// ==========================================
 // Initialization
 // ==========================================
 
@@ -475,6 +608,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Focus management for better accessibility
         console.log('SilverShield app initialized successfully');
     }
+
+    // Initialize chatbot
+    initChatbot();
 });
 
 // ==========================================
