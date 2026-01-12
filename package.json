@@ -1,0 +1,11 @@
+{
+  "name": "silvershield-main",
+  "version": "1.0.0",
+  "description": "SilverShield project",
+  "main": "js/app.js",
+  "scripts": {
+    "start": "live-server SilverShield-main --open=index.html --port=8080"
+  },
+  "author": "",
+  "license": "ISC"
+}
