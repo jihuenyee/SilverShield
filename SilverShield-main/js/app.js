@@ -420,7 +420,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             const target = document.querySelector(href);
             if (target) {
                 e.preventDefault();
-                target.focus();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => { target.setAttribute('tabindex', '-1'); target.focus(); }, 500);
             }
         }
     });
