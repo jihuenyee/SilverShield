@@ -598,6 +598,42 @@ function sendToChatbot(message) {
 }
 
 // ==========================================
+// Navigation & Smooth Scrolling
+// ==========================================
+
+function setupNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // Check if it's an internal anchor link
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    // Get the navbar height to offset the scroll
+                    const navbar = document.querySelector('.navbar');
+                    const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                    
+                    // Calculate the position accounting for fixed navbar
+                    const targetPosition = targetElement.offsetTop - navbarHeight;
+                    
+                    // Smooth scroll to the target
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+}
+
+// ==========================================
 // Initialization
 // ==========================================
 
@@ -608,6 +644,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Focus management for better accessibility
         console.log('SilverShield app initialized successfully');
     }
+
+    // Initialize navigation
+    setupNavigation();
 
     // Initialize chatbot
     initChatbot();
