@@ -158,12 +158,12 @@ Git repository metadata (auto-created)
 ### Colors
 | Color | Purpose | Hex |
 |-------|---------|-----|
-| Blue | Primary, trust | #0066CC |
-| Silver | Brand, accents | #C0C0C0 |
-| Green | Success | #2E8B57 |
-| Orange | Warning | #FF8C00 |
-| Red | Danger | #DC143C |
-| Gold | CTAs | #FFB800 |
+| Deep Navy Blue | Primary, trust | #1E3A8A |
+| Warm Dark Gray | Brand, accents | #374151 |
+| Forest Green | Success | #15803D |
+| Deep Rust | Warning | #B8400B |
+| Deep Crimson | Danger | #7F1D1D |
+| Bright Amber | CTAs | #EA8C0D |
 
 ### Typography
 - **Base Font**: Segoe UI, 18px

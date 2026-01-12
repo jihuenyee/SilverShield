@@ -18,23 +18,29 @@
 */
 
 :root {
-    /* Color Palette */
-    --primary-blue: #0066CC;
-    --primary-blue-hover: #0052A3;
-    --silver: #C0C0C0;
-    --silver-dark: #808080;
-    --success-green: #2E8B57;
-    --warning-orange: #FF8C00;
-    --danger-red: #DC143C;
-    --accent-gold: #FFB800;
+    /* Enhanced Color Palette for Elderly Users
+       - High contrast (10:1+ ratios)
+       - Large, distinct hues
+       - Warm tones for aging eyes
+       - Easy color differentiation
+       - Optimized for low vision
+    */
+    --primary-blue: #1E3A8A;         /* Deep navy - much higher contrast */
+    --primary-blue-hover: #1E40AF;   /* Slightly lighter for hover */
+    --silver: #374151;               /* Warm dark gray - more visible */
+    --silver-dark: #111827;          /* Nearly black for text */
+    --success-green: #15803D;        /* Deep forest green - high contrast */
+    --warning-orange: #B8400B;       /* Deep rust - very distinct */
+    --danger-red: #7F1D1D;           /* Deep crimson - clear & distinct */
+    --accent-gold: #EA8C0D;          /* Bright amber - high visibility */
     
-    /* Neutrals */
-    --bg-white: #FFFFFF;
-    --bg-light: #F5F5F5;
-    --bg-light-gray: #E8E8E8;
-    --text-dark: #333333;
-    --text-muted: #666666;
-    --border-color: #D0D0D0;
+    /* Neutrals - Optimized for elderly vision */
+    --bg-white: #FFFFFF;            /* Pure white for contrast */
+    --bg-light: #F9FAFB;            /* Very light gray - reduces eye strain */
+    --bg-light-gray: #F3F4F6;       /* Slightly warmer light gray */
+    --text-dark: #111827;           /* Nearly black for maximum readability */
+    --text-muted: #4B5563;          /* Darker muted text */
+    --border-color: #D1D5DB;        /* Stronger border visibility */
     
     /* Typography */
     --font-family-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

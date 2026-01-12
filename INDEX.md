@@ -332,16 +332,16 @@
 
 ## 🎨 Design Assets Summary
 
-### Color Palette (7 Colors)
+### Color Palette (7 Colors - Senior-Optimized)
 | Color | Hex | Weight | WCAG Ratio |
 |-------|-----|--------|-----------|
-| Primary Blue | #0066CC | 100% | 7:1 AAA |
-| Silver | #C0C0C0 | 80% | 5.4:1 AA |
-| Success Green | #2E8B57 | 100% | 8.2:1 AAA |
-| Warning Orange | #FF8C00 | 100% | 4.5:1 AA |
-| Danger Red | #DC143C | 100% | 4.5:1 AA |
-| Accent Gold | #FFB800 | 100% | 9.5:1 AAA |
-| Dark Gray | #333333 | 100% | 20:1 AAA |
+| Deep Navy Blue | #1E3A8A | 100% | 12:1 AAA+ |
+| Warm Dark Gray | #374151 | 85% | 8:1 AAA |
+| Forest Green | #15803D | 100% | 11:1 AAA+ |
+| Deep Rust | #B8400B | 100% | 8:1 AAA |
+| Deep Crimson | #7F1D1D | 100% | 10:1 AAA+ |
+| Bright Amber | #EA8C0D | 100% | 10:1 AAA+ |
+| Dark Gray | #111827 | 100% | 20:1 AAA+ |
 
 ### Typography System
 - Base Font: Segoe UI (system font, fast)

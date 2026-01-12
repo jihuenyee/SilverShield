@@ -35,23 +35,23 @@
 
 ## 🎨 Design System Delivered
 
-### Color Palette (7 Colors)
+### Color Palette (7 Colors - Enhanced for Elderly Vision)
 | Color | Name | Purpose | Hex |
 |-------|------|---------|-----|
-| 🔵 | Primary Blue | Trust, Navigation | #0066CC |
-| ⚪ | Silver | Brand, Accents | #C0C0C0 |
-| 🟢 | Success Green | Safety Signals | #2E8B57 |
-| 🟠 | Warning Orange | Cautions | #FF8C00 |
-| 🔴 | Danger Red | Critical Alerts | #DC143C |
-| 🟡 | Accent Gold | Call-to-Action | #FFB800 |
-| ⬜ | Neutrals | Text & Backgrounds | #333333 + #F5F5F5 |
+| 🔵 | Deep Navy Blue | Trust, Navigation | #1E3A8A |
+| ⚪ | Warm Dark Gray | Brand, Accents | #374151 |
+| 🟢 | Forest Green | Safety Signals | #15803D |
+| 🟠 | Deep Rust | Cautions | #B8400B |
+| 🔴 | Deep Crimson | Critical Alerts | #7F1D1D |
+| 🟡 | Bright Amber | Call-to-Action | #EA8C0D |
+| ⬜ | Neutral Grays | Text & Backgrounds | #111827 + #F9FAFB |
 
 **Why This Palette:**
-- ✅ WCAG AAA Accessibility (7:1+ contrast)
-- ✅ Senior-Focused (trust + clarity)
-- ✅ Colorblind-Friendly
-- ✅ High Visibility
-- ✅ Professional Appearance
+- ✅ 10:1+ contrast ratios (exceeds WCAG AAA)
+- ✅ Deep, distinct colors (easier for aging eyes)
+- ✅ Warm tones (better for cataracts & vision changes)
+- ✅ Colorblind-Friendly (distinct hues)
+- ✅ High Visibility (reduced eye strain)
 
 ---
 

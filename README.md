@@ -17,14 +17,14 @@ The color scheme is carefully chosen to align with the brand's values and target
 
 | Color | Hex Code | Usage | Psychology |
 |-------|----------|-------|------------|
-| **Primary Blue** | #0066CC | Navigation, headers, buttons | Trust, security, stability |
-| **Silver** | #C0C0C0 | Accents, secondary elements | Reflects brand name, sophistication |
-| **Success Green** | #2E8B57 | Success states, checkmarks | Growth, health, safety, reassurance |
-| **Warning Orange** | #FF8C00 | Warning indicators | Caution without aggression |
-| **Danger Red** | #DC143C | High-risk alerts | Urgency for critical warnings |
-| **Accent Gold** | #FFB800 | CTA buttons, highlights | Warmth, accessibility, visibility |
-| **Dark Gray** | #333333 | Text, main content | High contrast for readability |
-| **Light Gray** | #F5F5F5 | Backgrounds, sections | Clean, modern, reduces cognitive load |
+| **Primary Blue** | #1E3A8A | Navigation, headers, buttons | Trust, security, high contrast |
+| **Silver-Dark** | #374151 | Accents, secondary elements | Sophistication, visible warmth |
+| **Success Green** | #15803D | Success states, checkmarks | Growth, health, safety, reassurance |
+| **Warning Orange** | #B8400B | Warning indicators | Caution without aggression |
+| **Danger Red** | #7F1D1D | High-risk alerts | Urgency for critical warnings |
+| **Accent Gold** | #EA8C0D | CTA buttons, highlights | Warmth, accessibility, visibility |
+| **Dark Gray** | #111827 | Text, main content | High contrast for readability |
+| **Light Gray** | #F9FAFB | Backgrounds, sections | Clean, warm, reduces eye strain |
 
 ### Accessibility Priorities
 - **WCAG AA+ Compliance**: All color combinations meet accessibility standards
