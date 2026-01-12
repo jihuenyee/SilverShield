@@ -23,10 +23,10 @@
        Designed specifically for elderly users
        ============================================ */
     
-    /* PRIMARY: Rich Teal - Trust, Security, Modern */
-    --primary-teal: #1B6B7E;        /* Rich, sophisticated teal */
-    --primary-teal-hover: #0F4A54;  /* Darker teal on interaction */
-    --primary-teal-light: #2A8FA3;  /* Lighter teal for accents */
+    /* PRIMARY: Bright Teal - Trust, Security, Modern */
+    --primary-teal: #0088AA;        /* Brighter, more vibrant teal */
+    --primary-teal-hover: #006B88;  /* Darker teal on interaction */
+    --primary-teal-light: #00A8CC;  /* Lighter, brighter teal for accents */
     
     /* SECONDARY: Warm Coral - Friendly, Approachable */
     --secondary-coral: #D9735A;     /* Warm coral/salmon */
@@ -838,7 +838,7 @@ section {
 /* High contrast mode */
 @media (prefers-contrast: more) {
     :root {
-        --primary-teal: #0F3D48;
+        --primary-teal: #005A7A;
         --text-dark: #000000;
         --bg-light: #EFEFEF;
     }
