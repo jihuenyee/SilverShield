@@ -480,23 +480,23 @@ function getRecommendations(riskLevel) {
             '🚨 Do NOT provide personal information, passwords, or financial details',
             '🚨 Delete this message immediately',
             '🚨 Block the sender',
-            '✓ If you recognize the company, contact them directly using a trusted phone number',
-            '✓ Report the message to the relevant platform (WhatsApp, SMS provider, etc.)',
-            '✓ Consider reporting it to your country\'s fraud reporting service'
+            'If you recognize the company, contact them directly using a trusted phone number',
+            'Report the message to the relevant platform (WhatsApp, SMS provider, etc.)',
+            'Consider reporting it to your country\'s fraud reporting service'
         ],
         medium: [
             '⚠️ Be cautious with this message',
             '⚠️ Do not click links or share personal information unless you initiated the contact',
-            '✓ Verify independently by contacting the organization directly',
-            '✓ Check the sender\'s email or phone number carefully',
-            '✓ Look for spelling errors or unusual phrasing',
-            '✓ When in doubt, ask a trusted family member or friend'
+            'Verify independently by contacting the organization directly',
+            'Check the sender\'s email or phone number carefully',
+            'Look for spelling errors or unusual phrasing',
+            'When in doubt, ask a trusted family member or friend'
         ],
         low: [
-            '✓ This message appears to be legitimate',
-            '✓ However, always verify requests for personal information',
-            '✓ Be cautious of unexpected messages, even if they seem trustworthy',
-            '✓ Trust your instincts—if something feels off, investigate further'
+            'This message appears to be legitimate',
+            'However, always verify requests for personal information',
+            'Be cautious of unexpected messages, even if they seem trustworthy',
+            'Trust your instincts—if something feels off, investigate further'
         ]
     };
     
