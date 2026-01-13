@@ -116,21 +116,23 @@ const SCAM_TYPES = {
         ]
     },
     
-    romance: {
-        name: 'Romance/Dating Scam',
-        emoji: '💔',
+    family: {
+        name: 'Family Emergency Scam',
+        emoji: '👨‍👩‍👧‍👦',
         keywords: [
-            'love', 'sweetheart', 'darling', 'dear heart', 'miss you',
-            'miss you so much', 'can\'t wait', 'meet you', 'money problem',
-            'medical emergency', 'business trouble', 'help me'
+            'mom', 'dad', 'son', 'daughter', 'grandma', 'grandpa',
+            'aunt', 'uncle', 'cousin',
+            'it’s me', 'new number', 'can’t talk',
+            'emergency', 'hospital', 'accident',
+            'need money', 'urgent help', 'please don’t tell'
         ],
-        explanation: 'Someone builds a fake romantic relationship with you online, then asks for money for emergencies, travel, or business problems. They may steal photos from the internet to create a fake profile and slowly manipulate you into sending money.',
+        explanation: 'A scammer pretends to be a family member who claims to be in trouble. They often say they are using a new phone number and ask for money urgently due to an emergency such as an accident or hospital bill. The message pressures you to act quickly before you can verify the situation.',
         redFlags: [
-            'Conversation moves very quickly to declarations of love',
-            'Reluctance to video chat or meet in person',
-            'Stories about emergencies requiring money',
-            'Requests to send money to different people or accounts',
-            'Too-perfect profile photos'
+            'Message claims to be from a family member using a new number',
+            'Urgent requests for money or gift cards',
+            'Pressure to act quickly or keep it a secret',
+            'Refusal to make a phone or video call',
+            'Vague details about the emergency'
         ]
     },
     
@@ -478,23 +480,23 @@ function getRecommendations(riskLevel) {
             '🚨 Do NOT provide personal information, passwords, or financial details',
             '🚨 Delete this message immediately',
             '🚨 Block the sender',
-            '✓ If you recognize the company, contact them directly using a trusted phone number',
-            '✓ Report the message to the relevant platform (WhatsApp, SMS provider, etc.)',
-            '✓ Consider reporting it to your country\'s fraud reporting service'
+            'If you recognize the company, contact them directly using a trusted phone number',
+            'Report the message to the relevant platform (WhatsApp, SMS provider, etc.)',
+            'Consider reporting it to your country\'s fraud reporting service'
         ],
         medium: [
             '⚠️ Be cautious with this message',
             '⚠️ Do not click links or share personal information unless you initiated the contact',
-            '✓ Verify independently by contacting the organization directly',
-            '✓ Check the sender\'s email or phone number carefully',
-            '✓ Look for spelling errors or unusual phrasing',
-            '✓ When in doubt, ask a trusted family member or friend'
+            'Verify independently by contacting the organization directly',
+            'Check the sender\'s email or phone number carefully',
+            'Look for spelling errors or unusual phrasing',
+            'When in doubt, ask a trusted family member or friend'
         ],
         low: [
-            '✓ This message appears to be legitimate',
-            '✓ However, always verify requests for personal information',
-            '✓ Be cautious of unexpected messages, even if they seem trustworthy',
-            '✓ Trust your instincts—if something feels off, investigate further'
+            'This message appears to be legitimate',
+            'However, always verify requests for personal information',
+            'Be cautious of unexpected messages, even if they seem trustworthy',
+            'Trust your instincts—if something feels off, investigate further'
         ]
     };
     
