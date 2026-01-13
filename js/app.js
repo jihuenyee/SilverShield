@@ -158,7 +158,7 @@ const SCAM_TYPES = {
         keywords: [
             'your computer', 'virus', 'infected', 'malware', 'update',
             'system error', 'security warning', 'technical support',
-            'call now', 'download', 'fix'
+            'call now', 'click here', 'download', 'fix'
         ],
         explanation: 'You see a pop-up warning your device is infected or has a problem. It tells you to call a number or click a link to fix it. Scammers then charge you for fake repairs or steal your information when you give them remote access to your device.',
         redFlags: [
