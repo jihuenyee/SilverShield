@@ -211,6 +211,19 @@
         </div>
     </footer>
 
+    <!-- Flowise Chatbot Script -->
+    <script type="module">
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js";
+
+        Chatbot.init({
+            chatflowid: "d2272e95-7b4c-4cd6-8dfd-5a3e817ba27c", // Replace with your chatflow ID
+            apiHost: "https://cloud.flowiseai.com",
+            container: "#flowiseChatbot",
+            theme: "light",
+            title: "SilverShield AI"
+        });
+    </script>
+
     <!-- Scripts -->
     <script src="js/app.js"></script>
 </body>

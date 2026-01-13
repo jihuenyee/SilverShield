@@ -252,6 +252,17 @@ const riskLevel = document.getElementById('riskLevel');
 const analysisDetails = document.getElementById('analysisDetails');
 const recommendationsList = document.getElementById('recommendationsList');
 const contactForm = document.getElementById('contactForm');
+// Focus message input when 'Start Checking Now' is clicked (ensure DOM is ready)
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.cta-button').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            setTimeout(() => {
+                const input = document.getElementById('messageInput');
+                if (input) input.focus();
+            }, 300);
+        });
+    });
+});
 
 // ==========================================
 // Utility Functions
