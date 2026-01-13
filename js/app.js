@@ -511,6 +511,8 @@ function getRecommendations(riskLevel) {
 function displayResults(analysis) {
     // Animate container into view
     resultsContainer.style.display = 'block';
+    const checkerContainer = document.querySelector('.checker-container');
+    checkerContainer.classList.add('has-results');
     resultsContainer.scrollIntoView({ behavior: 'smooth' });
     
     // Update risk level
@@ -531,18 +533,16 @@ function displayResults(analysis) {
     // Display scam type if identified
     if (analysis.scamType) {
         detailsHTML += `
-            <div style="margin-bottom: 20px; padding: 15px; background-color: #fff3cd; border-left: 4px solid #FF8C00; border-radius: 6px;">
-                <h4 style="margin: 0 0 10px 0; font-size: 18px; color: #333;">
-                    <span style="font-size: 24px; margin-right: 8px;">${analysis.scamType.info.emoji}</span>
+            <div class="scam-type-box">
+                <h4>
+                    <span>${analysis.scamType.info.emoji}</span>
                     Scam Type: ${analysis.scamType.info.name}
                 </h4>
-                <p style="margin: 0 0 12px 0; line-height: 1.6; color: #333;">
-                    ${sanitizeInput(analysis.scamType.info.explanation)}
-                </p>
-                <details style="margin-top: 10px;">
-                    <summary style="cursor: pointer; color: #666; font-weight: 500;">Red Flags to Watch For (Click to expand)</summary>
-                    <ul style="margin: 10px 0 0 0; padding-left: 20px; color: #666;">
-                        ${analysis.scamType.info.redFlags.map(flag => `<li style="margin-bottom: 6px;">${sanitizeInput(flag)}</li>`).join('')}
+                <p>${sanitizeInput(analysis.scamType.info.explanation)}</p>
+                <details>
+                    <summary>Red Flags to Watch For (Click to expand)</summary>
+                    <ul>
+                        ${analysis.scamType.info.redFlags.map(flag => `<li>${sanitizeInput(flag)}</li>`).join('')}
                     </ul>
                 </details>
             </div>
@@ -552,15 +552,15 @@ function displayResults(analysis) {
     detailsHTML += '<h4 style="margin-bottom: 12px; font-weight: 600;">Detected Risk Factors:</h4>';
     
     if (analysis.detectedPatterns.length === 0) {
-        detailsHTML += '<p style="color: #2E8B57;">No suspicious patterns detected in this message.</p>';
+        detailsHTML += '<p class="no-patterns">No suspicious patterns detected in this message.</p>';
     } else {
         detailsHTML += '<ul style="list-style: none; padding: 0;">';
         analysis.detectedPatterns.forEach(pattern => {
             const confidence = Math.round((pattern.score / 35) * 100);
             detailsHTML += `
-                <li style="margin-bottom: 12px; padding: 12px; background-color: #f5f5f5; border-radius: 6px;">
+                <li class="pattern-item">
                     <strong>${pattern.category}</strong> (Confidence: ${Math.min(confidence, 100)}%)
-                    <br><small style="color: #666;">Keywords: ${pattern.keywords.join(', ')}</small>
+                    <br><small>Keywords: ${pattern.keywords.join(', ')}</small>
                 </li>
             `;
         });
@@ -583,6 +583,8 @@ function resetChecker() {
     messageInput.value = '';
     sourceSelect.value = '';
     resultsContainer.style.display = 'none';
+    const checkerContainer = document.querySelector('.checker-container');
+    checkerContainer.classList.remove('has-results');
     messageInput.focus();
 }
 

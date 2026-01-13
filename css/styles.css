@@ -367,6 +367,13 @@ section {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    transition: max-width var(--transition-normal), flex-direction var(--transition-normal);
+}
+
+.checker-container.has-results {
+    max-width: 1200px;
+    flex-direction: row;
+    align-items: flex-start;
 }
 
 .checker-form {
@@ -375,6 +382,12 @@ section {
     border-radius: 8px;
     box-shadow: var(--shadow-md);
     width: 100%;
+    flex: 0 0 auto;
+}
+
+.checker-container.has-results .checker-form {
+    flex: 1 1 45%;
+    max-width: 500px;
 }
 
 .form-group {
@@ -429,6 +442,7 @@ section {
     border-radius: 8px;
     box-shadow: var(--shadow-md);
     width: 100%;
+    flex: 1 1 50%;
 }
 
 .results-title {
@@ -768,6 +782,18 @@ section {
         grid-template-columns: 1fr;
     }
 
+    .checker-container.has-results {
+        flex-direction: column;
+        align-items: center;
+        max-width: 600px;
+    }
+
+    .checker-container.has-results .checker-form,
+    .checker-container.has-results .results-container {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
     .nav-links {
         gap: var(--spacing-md);
     }
@@ -869,6 +895,7 @@ section {
         --text-dark: #e0e0e0;
         --bg-white: #2a2a2a;
         --bg-light: #333333;
+        --bg-light-gray: #404040;
         --text-muted: #b0b0b0;
         --border-color: #444444;
     }
@@ -876,6 +903,202 @@ section {
     .form-input {
         background-color: #3a3a3a;
         color: #e0e0e0;
+        border-color: #555555;
+    }
+
+    .form-input:focus {
+        border-color: var(--primary-teal);
+        box-shadow: 0 0 0 3px rgba(0, 136, 170, 0.2);
+    }
+
+    /* Risk level cards - dark mode adjustments */
+    .risk-level.high {
+        background-color: #3a1a1a;
+        color: #ff6b6b;
+        border-left-color: #ff6b6b;
+    }
+
+    .risk-level.medium {
+        background-color: #3a2a1a;
+        color: #ffb84d;
+        border-left-color: #ffb84d;
+    }
+
+    .risk-level.low {
+        background-color: #1a3a1a;
+        color: #4dd0a1;
+        border-left-color: #4dd0a1;
+    }
+
+    /* Analysis details and recommendations */
+    .analysis-details {
+        background-color: #3a4a5a;
+        color: #e0e0e0;
+        border-left-color: #00a8cc;
+    }
+
+    .analysis-details h4 {
+        color: #e0e0e0;
+    }
+
+    .analysis-details p {
+        color: #b0b0b0;
+    }
+
+    .recommendations {
+        background-color: #3a3a3a;
+        color: #e0e0e0;
+    }
+
+    .recommendations-title {
+        color: #00a8cc;
+    }
+
+    .recommendations-list {
+        color: #b0b0b0;
+    }
+
+    .recommendations-list li {
+        color: #b0b0b0;
+    }
+
+    /* Scam type box - dark mode */
+    .scam-type-box {
+        background-color: #3a3a2a;
+        color: #e0e0e0;
+        border-left-color: #ffb84d;
+    }
+
+    .scam-type-box h4 {
+        color: #e0e0e0;
+    }
+
+    .scam-type-box p {
+        color: #b0b0b0;
+    }
+
+    .scam-type-box summary {
+        color: #00a8cc;
+    }
+
+    .scam-type-box ul {
+        color: #b0b0b0;
+    }
+
+    /* Pattern list items */
+    .pattern-item {
+        background-color: #3a3a3a;
+        color: #e0e0e0;
+        border-left-color: #00a8cc;
+    }
+
+    .pattern-item strong {
+        color: #e0e0e0;
+    }
+
+    .pattern-item small {
+        color: #999999;
+    }
+
+    /* Navbar */
+    .navbar {
+        background-color: #2a2a2a;
+        border-bottom-color: #444444;
+    }
+
+    .logo-text {
+        color: #e0e0e0;
+    }
+
+    .nav-link {
+        color: #b0b0b0;
+    }
+
+    .nav-link:hover {
+        color: #e0e0e0;
+    }
+
+    /* Hero section */
+    .hero {
+        background-color: #1f1f1f;
+    }
+
+    .hero-title,
+    .hero-subtitle {
+        color: #e0e0e0;
+    }
+
+    /* Section titles and subtitles */
+    .section-title {
+        color: #e0e0e0;
+    }
+
+    .section-subtitle {
+        color: #b0b0b0;
+    }
+
+    /* Buttons */
+    .submit-button,
+    .cta-button {
+        background-color: #0088aa;
+        color: #ffffff;
+    }
+
+    .submit-button:hover,
+    .cta-button:hover {
+        background-color: #006b88;
+    }
+
+    .cta-button {
+        background-color: #FF8C00;
+    }
+
+    .cta-button:hover {
+        background-color: #E67E00;
+    }
+
+    .secondary-button {
+        background-color: #444444;
+        color: #e0e0e0;
+        border-color: #555555;
+    }
+
+    .secondary-button:hover {
+        background-color: #555555;
+    }
+
+    /* About section */
+    .about-card {
+        background-color: #2a2a2a;
+        border-color: #444444;
+    }
+
+    .about-card h3,
+    .about-card p {
+        color: #e0e0e0;
+    }
+
+    /* Contact form */
+    .contact-form {
+        background-color: #2a2a2a;
+    }
+
+    /* Footer */
+    .footer {
+        background-color: #1f1f1f;
+        border-top-color: #444444;
+    }
+
+    .footer-content {
+        color: #b0b0b0;
+    }
+
+    .footer-links a {
+        color: #00a8cc;
+    }
+
+    .footer-links a:hover {
+        color: #00d4ff;
     }
 }
 
