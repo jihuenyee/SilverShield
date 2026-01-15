@@ -610,36 +610,55 @@ function resetChecker() {
  */
 scamCheckerForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    
+
     const message = messageInput.value.trim();
-    
     if (!message) {
         alert('Please enter a message to analyze');
         return;
     }
-    
+
     // Show loading state
     const submitButton = scamCheckerForm.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
     submitButton.textContent = '🔍 Analyzing...';
     submitButton.disabled = true;
-    
-    // Simulate processing delay for better UX
-    setTimeout(() => {
-        const analysis = detectScam(message);
-        displayResults(analysis);
-        
+
+
+    // Show results container immediately for instant feedback
+    const resultsContainer = document.getElementById('resultsContainer');
+    if (resultsContainer) {
+        resultsContainer.style.display = 'block';
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Show loading in Flowise panel
+    const flowisePanel = document.getElementById('flowiseAnalysis');
+    if (flowisePanel) flowisePanel.textContent = 'Loading...';
+
+    // Flowise API call only
+    fetch('https://cloud.flowiseai.com/api/v1/prediction/d2272e95-7b4c-4cd6-8dfd-5a3e817ba27c', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ question: message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (flowisePanel) {
+            let answer = data?.text || data?.answer || JSON.stringify(data);
+            flowisePanel.textContent = answer;
+        }
         // Restore button
         submitButton.textContent = originalText;
         submitButton.disabled = false;
-        
-        // Announce results to screen readers
-        let announcement = `Analysis complete. Risk level: ${analysis.riskLevel.toUpperCase()}. ${analysis.detectedPatterns.length} risk factors detected.`;
-        if (analysis.scamType) {
-            announcement += ` This appears to be a ${analysis.scamType.info.name}.`;
-        }
-        announceToScreenReader(announcement);
-    }, 500);
+        announceToScreenReader('Flowise analysis complete.');
+    })
+    .catch(err => {
+        if (flowisePanel) flowisePanel.textContent = 'Flowise analysis unavailable.';
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    });
 });
 
 /**

@@ -95,16 +95,13 @@
                 <!-- Results Section -->
                 <div id="resultsContainer" class="results-container" style="display: none;" role="region" aria-live="polite" aria-labelledby="resultsTitle">
                     <h3 id="resultsTitle" class="results-title">Analysis Results</h3>
-                    
-                    <div id="riskLevel" class="risk-level"></div>
-
-                    <div id="analysisDetails" class="analysis-details"></div>
-
-                    <div class="recommendations">
-                        <h4 class="recommendations-title">What You Should Do</h4>
-                        <ul id="recommendationsList" class="recommendations-list"></ul>
+                    <div class="dual-results">
+                        <!-- Flowise Analysis Result Only -->
+                        <div class="result-panel" id="flowiseResultPanel" style="flex:1 1 100%;">
+                            <h4>Flowise AI Analysis</h4>
+                            <div id="flowiseAnalysis" class="flowise-analysis-details">Loading...</div>
+                        </div>
                     </div>
-
                     <button type="button" class="secondary-button" onclick="resetChecker()">
                         Check Another Message
                     </button>
@@ -211,18 +208,7 @@
         </div>
     </footer>
 
-    <!-- Flowise Chatbot Script -->
-    <script type="module">
-        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js";
-
-        Chatbot.init({
-            chatflowid: "d2272e95-7b4c-4cd6-8dfd-5a3e817ba27c", // Replace with your chatflow ID
-            apiHost: "https://cloud.flowiseai.com",
-            container: "#flowiseChatbot",
-            theme: "light",
-            title: "SilverShield AI"
-        });
-    </script>
+    
 
     <!-- Scripts -->
     <script src="js/app.js"></script>

@@ -1,3 +1,30 @@
+/* Dual Results Panel for Local + Flowise */
+.dual-results {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+.result-panel {
+    flex: 1 1 300px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    min-width: 260px;
+}
+.result-panel h4 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #0066cc;
+}
+.flowise-analysis-details {
+    min-height: 2.5em;
+    color: #222;
+    font-size: 1rem;
+    margin-top: 0.5em;
+    white-space: pre-line;
+}
 /* ==========================================
    SilverShield - Color Palette & Design System
    ========================================== 
