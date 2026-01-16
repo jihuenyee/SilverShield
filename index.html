@@ -24,7 +24,7 @@
             </ul>
         </div>
     </nav>
-
+ 
     <!-- Hero Section -->
     <header id="home" class="hero" role="banner">
         <div class="hero-content">
@@ -35,7 +35,7 @@
             <a href="#checker" class="cta-button" role="button">Start Checking Now</a>
         </div>
     </header>
-
+ 
     <!-- Main Content -->
     <main class="container">
         <!-- Message Checker Section -->
@@ -44,7 +44,7 @@
             <p class="section-subtitle">
                 Paste a message, link, or describe what you received. We'll analyze it for scam warning signs.
             </p>
-
+ 
             <div class="checker-container">
                 <!-- Input Form -->
                 <form id="scamCheckerForm" class="checker-form">
@@ -64,7 +64,7 @@
                             You can paste text messages, WhatsApp messages, emails, or describe what you received.
                         </p>
                     </div>
-
+ 
                     <div class="form-group">
                         <label for="sourceSelect" class="form-label">
                             Where did you receive this message?
@@ -85,37 +85,37 @@
                             This helps us provide more accurate analysis.
                         </p>
                     </div>
-
+ 
                     <button type="submit" id="submitBtn" class="submit-button" aria-label="Analyze message for scams">
                         <span class="button-icon" aria-hidden="true">🔍</span>
                         <span id="btnText">Analyze Message</span>
                     </button>
                 </form>
-
+ 
                 <!-- NEW STRUCTURED RESULTS SECTION -->
                 <div id="resultsContainer" class="results-container" style="display: none;" role="region" aria-live="polite" aria-labelledby="resultsTitle">
                     <h3 id="resultsTitle" class="results-title">Analysis Results</h3>
-                    
+                   
                     <!-- 1. The Big Risk Badge -->
                     <div id="riskBadge" class="risk-badge" style="background-color: var(--tertiary-slate);">
                         Analyzing...
                     </div>
-
+ 
                     <!-- 2. The Grid of Details -->
                     <div class="analysis-grid">
-                        
+                       
                         <!-- Scam Type Box -->
                         <div class="result-card">
                             <h4>⚠️ Scam Type</h4>
                             <p id="scamType">Loading...</p>
                         </div>
-
+ 
                         <!-- Recommendation Box -->
                         <div class="result-card">
                             <h4>🛡️ Action Plan</h4>
                             <p id="recommendation">Loading...</p>
                         </div>
-
+ 
                         <!-- Detailed Explanation Box (Full Width) -->
                         <div class="result-card full-width">
                             <h4>📝 Detailed Analysis</h4>
@@ -123,9 +123,9 @@
                                 <!-- Content injected here -->
                             </div>
                         </div>
-
+ 
                     </div>
-
+ 
                     <button type="button" class="secondary-button" onclick="resetChecker()">
                         Check Another Message
                     </button>
@@ -133,7 +133,7 @@
                 <!-- END RESULTS SECTION -->
             </div>
         </section>
-
+ 
         <!-- About Section -->
         <section id="about" class="about-section" aria-labelledby="about-title">
             <h2 id="about-title" class="section-title">Why SilverShield?</h2>
@@ -160,7 +160,7 @@
                 </div>
             </div>
         </section>
-
+ 
         <!-- Contact Section -->
         <section id="contact" class="contact-section" aria-labelledby="contact-title">
             <h2 id="contact-title" class="section-title">Get Help or Feedback</h2>
@@ -178,44 +178,44 @@
                     <label for="contactMessage" class="form-label">Message</label>
                     <textarea id="contactMessage" class="form-input" placeholder="Tell us what's on your mind..." rows="4" required></textarea>
                 </div>
-                <button type="submit" class="submit-button">Send Message</button>
+                <button type="submit" class="submit-button" onclick="alert('Thank you for your message! We\'ll get back to you soon at ' + document.getElementById('contactEmail').value)">Send Message</button>
             </form>
         </section>
     </main>
-
+ 
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
         <div class="footer-content">
             <p>&copy; 2026 SilverShield. Protecting seniors from online scams.</p>
         </div>
     </footer>
-
+ 
     <!-- FLOWISE INTEGRATION SCRIPT -->
     <script>
         // ==========================================
         // CONFIGURATION
         // ==========================================
-        const FLOWISE_API_URL = "https://cloud.flowiseai.com"; 
-        const CHATFLOW_ID = "b4562bde-c907-4907-8b7f-7c390d80366a";     
+        const FLOWISE_API_URL = "https://cloud.flowiseai.com";
+        const CHATFLOW_ID = "b4562bde-c907-4907-8b7f-7c390d80366a";    
         // ==========================================
-
+ 
         const form = document.getElementById('scamCheckerForm');
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
         const resultsContainer = document.getElementById('resultsContainer');
-
+ 
         // Handle Form Submission
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
-
+ 
             // 1. Get User Input
             const message = document.getElementById('messageInput').value;
             const source = document.getElementById('sourceSelect').value;
-            
+           
             // 2. Construct Query to Force JSON Response
             const finalQuery = `
             Analyze this message received via ${source || 'Unknown Source'}: "${message}"
-            
+           
             IMPORTANT: You are a backend API. Respond using VALID JSON ONLY. Do not add markdown like \`\`\`json.
             Structure your response exactly like this:
             {
@@ -225,34 +225,34 @@
                 "explanation": (detailed analysis text)
             }
             `;
-
+ 
             // 3. Show Loading State
             setLoading(true);
             resultsContainer.style.display = 'none';
-
+ 
             try {
                 // 4. Send to Flowise
                 const response = await queryFlowise(finalQuery);
-
+ 
                 if (response && response.text) {
                     // Clean up markdown if the AI adds it
                     let cleanText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
-
+ 
                     try {
                         // 5. Parse JSON
                         const data = JSON.parse(cleanText);
-
+ 
                         // 6. Populate UI Elements
                         document.getElementById('scamType').textContent = data.scam_type || "General Suspicion";
                         document.getElementById('recommendation').textContent = data.recommendation || "Proceed with caution.";
                         document.getElementById('detailedExplanation').textContent = data.explanation || response.text;
-
+ 
                         // 7. Update Risk Badge Color
                         const badge = document.getElementById('riskBadge');
                         const score = parseInt(data.risk_score) || 0;
-
+ 
                         if (score > 70) {
-                            badge.style.backgroundColor = "var(--danger-crimson)"; 
+                            badge.style.backgroundColor = "var(--danger-crimson)";
                             badge.textContent = `🚫 High Risk (Score: ${score}/100)`;
                         } else if (score > 30) {
                             badge.style.backgroundColor = "var(--warning-amber)";
@@ -262,7 +262,7 @@
                             badge.style.backgroundColor = "var(--success-teal)";
                             badge.textContent = `✅ Low Risk (Score: ${score}/100)`;
                         }
-
+ 
                     } catch (e) {
                         // Fallback: If AI returns plain text instead of JSON
                         console.warn("AI returned plain text, falling back.");
@@ -275,11 +275,11 @@
                 } else {
                     document.getElementById('detailedExplanation').textContent = "No response received. Please try again.";
                 }
-                
+               
                 resultsContainer.style.display = 'block';
                 // Scroll to results
                 resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
+ 
             } catch (error) {
                 console.error("Error:", error);
                 alert("Error connecting to SilverShield AI. Please check your internet connection.");
@@ -287,11 +287,11 @@
                 setLoading(false);
             }
         });
-
+ 
         // Function to call Flowise API
         async function queryFlowise(question) {
             const url = `${FLOWISE_API_URL}/api/v1/prediction/${CHATFLOW_ID}`;
-            
+           
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -301,14 +301,14 @@
                     question: question
                 })
             });
-
+ 
             if (!response.ok) {
                 throw new Error(`API Request failed: ${response.status}`);
             }
-
+ 
             return await response.json();
         }
-
+ 
         // Helper to toggle button state
         function setLoading(isLoading) {
             if (isLoading) {
@@ -323,7 +323,7 @@
                 submitBtn.style.cursor = "pointer";
             }
         }
-
+ 
         // Function to reset the form
         function resetChecker() {
             form.reset();
