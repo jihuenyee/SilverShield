@@ -248,9 +248,6 @@ const scamCheckerForm = document.getElementById('scamCheckerForm');
 const messageInput = document.getElementById('messageInput');
 const sourceSelect = document.getElementById('sourceSelect');
 const resultsContainer = document.getElementById('resultsContainer');
-const riskLevel = document.getElementById('riskLevel');
-const analysisDetails = document.getElementById('analysisDetails');
-const recommendationsList = document.getElementById('recommendationsList');
 const contactForm = document.getElementById('contactForm');
 // Focus message input when 'Start Checking Now' is clicked (ensure DOM is ready)
 document.addEventListener('DOMContentLoaded', function() {
@@ -475,131 +472,9 @@ function detectScam(message) {
 /**
  * Determine risk level based on score
  */
-function getRiskLevel(score) {
-    if (score >= 70) return 'high';
-    if (score >= 40) return 'medium';
-    return 'low';
-}
 
-/**
- * Get recommendations based on risk level
- */
-function getRecommendations(riskLevel) {
-    const recommendations = {
-        high: [
-            '🚨 Do NOT click any links or download attachments from this message',
-            '🚨 Do NOT provide personal information, passwords, or financial details',
-            '🚨 Delete this message immediately',
-            '🚨 Block the sender',
-            'If you recognize the company, contact them directly using a trusted phone number',
-            'Report the message to the relevant platform (WhatsApp, SMS provider, etc.)',
-            'Consider reporting it to your country\'s fraud reporting service'
-        ],
-        medium: [
-            '⚠️ Be cautious with this message',
-            '⚠️ Do not click links or share personal information unless you initiated the contact',
-            'Verify independently by contacting the organization directly',
-            'Check the sender\'s email or phone number carefully',
-            'Look for spelling errors or unusual phrasing',
-            'When in doubt, ask a trusted family member or friend'
-        ],
-        low: [
-            'This message appears to be legitimate',
-            'However, always verify requests for personal information',
-            'Be cautious of unexpected messages, even if they seem trustworthy',
-            'Trust your instincts—if something feels off, investigate further'
-        ]
-    };
-    
-    return recommendations[riskLevel] || recommendations.low;
-}
 
-// ==========================================
-// UI Update Functions
-// ==========================================
 
-/**
- * Display analysis results with accessibility support
- */
-function displayResults(analysis) {
-    // Animate container into view
-    resultsContainer.style.display = 'block';
-    const checkerContainer = document.querySelector('.checker-container');
-    checkerContainer.classList.add('has-results');
-    resultsContainer.scrollIntoView({ behavior: 'smooth' });
-    
-    // Update risk level
-    const riskText = {
-        high: '🚨 HIGH RISK - Likely Scam',
-        medium: '⚠️ MEDIUM RISK - Suspicious',
-        low: '✓ LOW RISK - Appears Safe'
-    };
-    
-    riskLevel.textContent = riskText[analysis.riskLevel];
-    riskLevel.className = `risk-level ${analysis.riskLevel}`;
-    riskLevel.setAttribute('role', 'status');
-    riskLevel.setAttribute('aria-live', 'assertive');
-    
-    // Update analysis details with scam type information
-    let detailsHTML = '';
-    
-    // Display scam type if identified
-    if (analysis.scamType) {
-        detailsHTML += `
-            <div class="scam-type-box">
-                <h4>
-                    <span>${analysis.scamType.info.emoji}</span>
-                    Scam Type: ${analysis.scamType.info.name}
-                </h4>
-                <p>${sanitizeInput(analysis.scamType.info.explanation)}</p>
-                <details>
-                    <summary>Red Flags to Watch For (Click to expand)</summary>
-                    <ul>
-                        ${analysis.scamType.info.redFlags.map(flag => `<li>${sanitizeInput(flag)}</li>`).join('')}
-                    </ul>
-                </details>
-            </div>
-        `;
-    }
-    
-    detailsHTML += '<h4 style="margin-bottom: 12px; font-weight: 600;">Detected Risk Factors:</h4>';
-    
-    if (analysis.detectedPatterns.length === 0) {
-        detailsHTML += '<p class="no-patterns">No suspicious patterns detected in this message.</p>';
-    } else {
-        detailsHTML += '<ul style="list-style: none; padding: 0;">';
-        analysis.detectedPatterns.forEach(pattern => {
-            const confidence = Math.round((pattern.score / 35) * 100);
-            detailsHTML += `
-                <li class="pattern-item">
-                    <strong>${pattern.category}</strong> (Confidence: ${Math.min(confidence, 100)}%)
-                    <br><small>Keywords: ${pattern.keywords.join(', ')}</small>
-                </li>
-            `;
-        });
-        detailsHTML += '</ul>';
-    }
-    
-    analysisDetails.innerHTML = detailsHTML;
-    
-    // Update recommendations
-    const recommendations = getRecommendations(analysis.riskLevel);
-    recommendationsList.innerHTML = recommendations
-        .map(rec => `<li>${sanitizeInput(rec)}</li>`)
-        .join('');
-}
-
-/**
- * Reset checker form and results
- */
-function resetChecker() {
-    messageInput.value = '';
-    sourceSelect.value = '';
-    resultsContainer.style.display = 'none';
-    const checkerContainer = document.querySelector('.checker-container');
-    checkerContainer.classList.remove('has-results');
-    messageInput.focus();
-}
 
 // ==========================================
 // Event Handlers
@@ -960,7 +835,6 @@ if ('serviceWorker' in navigator) {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         detectScam,
-        getRiskLevel,
-        getRecommendations
+        identifyScamType
     };
 }
