@@ -13,7 +13,7 @@
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="logo">
-                <span class="logo-icon" aria-hidden="true"><img src="logo.png" alt=""></span>
+                <span class="logo-icon" aria-hidden="true">🛡️</span>
                 <span class="logo-text">SilverShield</span>
             </div>
             <ul class="nav-links">
@@ -75,20 +75,20 @@
                             aria-describedby="sourceHelper"
                         >
                             <option value="">Select a source...</option>
-                            <option value="text">Text Message (SMS)</option>
-                            <option value="whatsapp">WhatsApp</option>
-                            <option value="email">Email</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="other">Other</option>
+                            <option value="Text Message (SMS)">Text Message (SMS)</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Email">Email</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Other">Other</option>
                         </select>
                         <p id="sourceHelper" class="input-helper">
                             This helps us provide more accurate analysis.
                         </p>
                     </div>
 
-                    <button type="submit" class="submit-button" aria-label="Analyze message for scams">
+                    <button type="submit" id="submitBtn" class="submit-button" aria-label="Analyze message for scams">
                         <span class="button-icon" aria-hidden="true">🔍</span>
-                        Analyze Message
+                        <span id="btnText">Analyze Message</span>
                     </button>
                 </form>
 
@@ -96,10 +96,10 @@
                 <div id="resultsContainer" class="results-container" style="display: none;" role="region" aria-live="polite" aria-labelledby="resultsTitle">
                     <h3 id="resultsTitle" class="results-title">Analysis Results</h3>
                     <div class="dual-results">
-                        <!-- Flowise Analysis Result Only -->
                         <div class="result-panel" id="flowiseResultPanel" style="flex:1 1 100%;">
-                            <h4>Flowise AI Analysis</h4>
-                            <div id="flowiseAnalysis" class="flowise-analysis-details">Loading...</div>
+                            <div id="flowiseAnalysis" class="flowise-analysis-details" style="white-space: pre-wrap; line-height: 1.6;">
+                                <!-- AI Content will be injected here -->
+                            </div>
                         </div>
                     </div>
                     <button type="button" class="secondary-button" onclick="resetChecker()">
@@ -112,38 +112,26 @@
         <!-- About Section -->
         <section id="about" class="about-section" aria-labelledby="about-title">
             <h2 id="about-title" class="section-title">Why SilverShield?</h2>
-            
             <div class="about-grid">
                 <div class="about-card">
                     <div class="about-icon" aria-hidden="true">🔒</div>
                     <h3>Protection Without Shame</h3>
-                    <p>
-                        Scammers are sophisticated. It's not about being naive—it's about getting a second opinion from an AI trained to spot scam patterns.
-                    </p>
+                    <p>Scammers are sophisticated. It's not about being naive—it's about getting a second opinion from an AI trained to spot scam patterns.</p>
                 </div>
-
                 <div class="about-card">
                     <div class="about-icon" aria-hidden="true">⏰</div>
                     <h3>24/7 Availability</h3>
-                    <p>
-                        Available anytime, anywhere. You don't have to wait for family to help or worry about bothering them with another question.
-                    </p>
+                    <p>Available anytime, anywhere. You don't have to wait for family to help or worry about bothering them with another question.</p>
                 </div>
-
                 <div class="about-card">
                     <div class="about-icon" aria-hidden="true">🤖</div>
                     <h3>AI-Powered Analysis</h3>
-                    <p>
-                        Our system recognizes urgency cues, suspicious links, payment requests, and known scam patterns in real-time.
-                    </p>
+                    <p>Our system recognizes urgency cues, suspicious links, payment requests, and known scam patterns in real-time.</p>
                 </div>
-
                 <div class="about-card">
                     <div class="about-icon" aria-hidden="true">💙</div>
                     <h3>Built for You</h3>
-                    <p>
-                        Large text, simple navigation, and clear results. Designed with accessibility in mind for users of all abilities.
-                    </p>
+                    <p>Large text, simple navigation, and clear results. Designed with accessibility in mind for users of all abilities.</p>
                 </div>
             </div>
         </section>
@@ -151,47 +139,21 @@
         <!-- Contact Section -->
         <section id="contact" class="contact-section" aria-labelledby="contact-title">
             <h2 id="contact-title" class="section-title">Get Help or Feedback</h2>
-            <p class="section-subtitle">
-                Have a question? Found a scam we should know about? We'd love to hear from you.
-            </p>
-
+            <p class="section-subtitle">Have a question? Found a scam we should know about? We'd love to hear from you.</p>
             <form class="contact-form" id="contactForm">
                 <div class="form-group">
                     <label for="contactName" class="form-label">Your Name</label>
-                    <input
-                        type="text"
-                        id="contactName"
-                        class="form-input"
-                        placeholder="John Smith"
-                        required
-                    >
+                    <input type="text" id="contactName" class="form-input" placeholder="John Smith" required>
                 </div>
-
                 <div class="form-group">
                     <label for="contactEmail" class="form-label">Email Address</label>
-                    <input
-                        type="email"
-                        id="contactEmail"
-                        class="form-input"
-                        placeholder="john@example.com"
-                        required
-                    >
+                    <input type="email" id="contactEmail" class="form-input" placeholder="john@example.com" required>
                 </div>
-
                 <div class="form-group">
                     <label for="contactMessage" class="form-label">Message</label>
-                    <textarea
-                        id="contactMessage"
-                        class="form-input"
-                        placeholder="Tell us what's on your mind..."
-                        rows="4"
-                        required
-                    ></textarea>
+                    <textarea id="contactMessage" class="form-input" placeholder="Tell us what's on your mind..." rows="4" required></textarea>
                 </div>
-
-                <button type="submit" class="submit-button">
-                    Send Message
-                </button>
+                <button type="submit" class="submit-button">Send Message</button>
             </form>
         </section>
     </main>
@@ -200,17 +162,109 @@
     <footer class="footer" role="contentinfo">
         <div class="footer-content">
             <p>&copy; 2026 SilverShield. Protecting seniors from online scams.</p>
-            <ul class="footer-links">
-                <li><a href="#" aria-label="Privacy Policy">Privacy Policy</a></li>
-                <li><a href="#" aria-label="Terms of Service">Terms of Service</a></li>
-                <li><a href="#" aria-label="Accessibility Statement">Accessibility</a></li>
-            </ul>
         </div>
     </footer>
 
-    
+    <!-- FLOWISE INTEGRATION SCRIPT -->
+    <script>
+        // ==========================================
+        // CONFIGURATION: I filled these in for you!
+        // ==========================================
+        const FLOWISE_API_URL = "https://cloud.flowiseai.com"; 
+        const CHATFLOW_ID = "b4562bde-c907-4907-8b7f-7c390d80366a";     
+        // ==========================================
 
-    <!-- Scripts -->
-    <script src="js/app.js"></script>
+        const form = document.getElementById('scamCheckerForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const flowiseOutput = document.getElementById('flowiseAnalysis');
+
+        // Handle Form Submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // 1. Get User Input
+            const message = document.getElementById('messageInput').value;
+            const source = document.getElementById('sourceSelect').value;
+            
+            // Combine source and message for context
+            const finalQuery = source 
+                ? `Received via ${source}: ${message}` 
+                : message;
+
+            // 2. Show Loading State
+            setLoading(true);
+            resultsContainer.style.display = 'none';
+
+            try {
+                // 3. Send to Flowise
+                const response = await queryFlowise(finalQuery);
+
+                // 4. Display Results
+                if (response && response.text) {
+                    flowiseOutput.innerText = response.text;
+                } else if (response && response.message) {
+                     // Sometimes errors come back as a message object
+                     flowiseOutput.innerText = "Error: " + response.message;
+                } else {
+                    flowiseOutput.innerText = "No response received from the AI. Please try again.";
+                }
+                
+                resultsContainer.style.display = 'block';
+                // Scroll to results
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error connecting to SilverShield AI. Please check your internet connection.");
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Function to call Flowise API
+        async function queryFlowise(question) {
+            const url = `${FLOWISE_API_URL}/api/v1/prediction/${CHATFLOW_ID}`;
+            
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    question: question
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Request failed: ${response.status}`);
+            }
+
+            return await response.json();
+        }
+
+        // Helper to toggle button state
+        function setLoading(isLoading) {
+            if (isLoading) {
+                submitBtn.disabled = true;
+                btnText.textContent = "Analyzing...";
+                submitBtn.style.opacity = "0.7";
+                submitBtn.style.cursor = "not-allowed";
+            } else {
+                submitBtn.disabled = false;
+                btnText.textContent = "Analyze Message";
+                submitBtn.style.opacity = "1";
+                submitBtn.style.cursor = "pointer";
+            }
+        }
+
+        // Function to reset the form
+        function resetChecker() {
+            form.reset();
+            resultsContainer.style.display = 'none';
+            document.getElementById('messageInput').focus();
+        }
+    </script>
 </body>
 </html>
