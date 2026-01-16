@@ -1148,3 +1148,65 @@ textarea:focus-visible {
     outline: 3px solid var(--accent-warm);
     outline-offset: 2px;
 }
+
+/* ==========================================
+   Start: New Structured Results Layout
+   (Paste this at the bottom of styles.css)
+   ========================================== */
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Two columns on tablets/desktops */
+@media (min-width: 768px) {
+    .analysis-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .full-width {
+        grid-column: span 2;
+    }
+}
+
+.result-card {
+    background-color: var(--bg-white);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    border-left: 6px solid var(--primary-teal);
+    box-shadow: var(--shadow-sm);
+}
+
+.result-card h4 {
+    color: var(--primary-teal);
+    font-size: var(--font-size-small); /* 18px */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--bg-light-gray);
+    padding-bottom: 8px;
+}
+
+.result-card p, 
+.result-card div {
+    font-size: var(--font-size-base);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Big Risk Badge */
+.risk-badge {
+    text-align: center;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 24px;
+    color: white;
+    box-shadow: var(--shadow-md);
+    transition: background-color var(--transition-normal);
+}

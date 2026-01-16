@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="SilverShield - A friendly AI-powered scam detection bot for seniors. Analyze messages, screenshots, and links to protect yourself from scams.">
-    <meta name="theme-color" content="#0066cc">
+    <meta name="theme-color" content="#0088AA">
     <title>SilverShield - Scam Detection for Seniors</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -92,20 +92,45 @@
                     </button>
                 </form>
 
-                <!-- Results Section -->
+                <!-- NEW STRUCTURED RESULTS SECTION -->
                 <div id="resultsContainer" class="results-container" style="display: none;" role="region" aria-live="polite" aria-labelledby="resultsTitle">
                     <h3 id="resultsTitle" class="results-title">Analysis Results</h3>
-                    <div class="dual-results">
-                        <div class="result-panel" id="flowiseResultPanel" style="flex:1 1 100%;">
-                            <div id="flowiseAnalysis" class="flowise-analysis-details" style="white-space: pre-wrap; line-height: 1.6;">
-                                <!-- AI Content will be injected here -->
+                    
+                    <!-- 1. The Big Risk Badge -->
+                    <div id="riskBadge" class="risk-badge" style="background-color: var(--tertiary-slate);">
+                        Analyzing...
+                    </div>
+
+                    <!-- 2. The Grid of Details -->
+                    <div class="analysis-grid">
+                        
+                        <!-- Scam Type Box -->
+                        <div class="result-card">
+                            <h4>⚠️ Scam Type</h4>
+                            <p id="scamType">Loading...</p>
+                        </div>
+
+                        <!-- Recommendation Box -->
+                        <div class="result-card">
+                            <h4>🛡️ Action Plan</h4>
+                            <p id="recommendation">Loading...</p>
+                        </div>
+
+                        <!-- Detailed Explanation Box (Full Width) -->
+                        <div class="result-card full-width">
+                            <h4>📝 Detailed Analysis</h4>
+                            <div id="detailedExplanation" style="white-space: pre-wrap;">
+                                <!-- Content injected here -->
                             </div>
                         </div>
+
                     </div>
+
                     <button type="button" class="secondary-button" onclick="resetChecker()">
                         Check Another Message
                     </button>
                 </div>
+                <!-- END RESULTS SECTION -->
             </div>
         </section>
 
@@ -168,7 +193,7 @@
     <!-- FLOWISE INTEGRATION SCRIPT -->
     <script>
         // ==========================================
-        // CONFIGURATION: I filled these in for you!
+        // CONFIGURATION
         // ==========================================
         const FLOWISE_API_URL = "https://cloud.flowiseai.com"; 
         const CHATFLOW_ID = "b4562bde-c907-4907-8b7f-7c390d80366a";     
@@ -178,7 +203,6 @@
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
         const resultsContainer = document.getElementById('resultsContainer');
-        const flowiseOutput = document.getElementById('flowiseAnalysis');
 
         // Handle Form Submission
         form.addEventListener('submit', async function(e) {
@@ -188,27 +212,68 @@
             const message = document.getElementById('messageInput').value;
             const source = document.getElementById('sourceSelect').value;
             
-            // Combine source and message for context
-            const finalQuery = source 
-                ? `Received via ${source}: ${message}` 
-                : message;
+            // 2. Construct Query to Force JSON Response
+            const finalQuery = `
+            Analyze this message received via ${source || 'Unknown Source'}: "${message}"
+            
+            IMPORTANT: You are a backend API. Respond using VALID JSON ONLY. Do not add markdown like \`\`\`json.
+            Structure your response exactly like this:
+            {
+                "risk_score": (number between 0-100),
+                "scam_type": (short string, e.g. "Phishing Attempt"),
+                "recommendation": (one short sentence action item),
+                "explanation": (detailed analysis text)
+            }
+            `;
 
-            // 2. Show Loading State
+            // 3. Show Loading State
             setLoading(true);
             resultsContainer.style.display = 'none';
 
             try {
-                // 3. Send to Flowise
+                // 4. Send to Flowise
                 const response = await queryFlowise(finalQuery);
 
-                // 4. Display Results
                 if (response && response.text) {
-                    flowiseOutput.innerText = response.text;
-                } else if (response && response.message) {
-                     // Sometimes errors come back as a message object
-                     flowiseOutput.innerText = "Error: " + response.message;
+                    // Clean up markdown if the AI adds it
+                    let cleanText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
+
+                    try {
+                        // 5. Parse JSON
+                        const data = JSON.parse(cleanText);
+
+                        // 6. Populate UI Elements
+                        document.getElementById('scamType').textContent = data.scam_type || "General Suspicion";
+                        document.getElementById('recommendation').textContent = data.recommendation || "Proceed with caution.";
+                        document.getElementById('detailedExplanation').textContent = data.explanation || response.text;
+
+                        // 7. Update Risk Badge Color
+                        const badge = document.getElementById('riskBadge');
+                        const score = parseInt(data.risk_score) || 0;
+
+                        if (score > 70) {
+                            badge.style.backgroundColor = "var(--danger-crimson)"; 
+                            badge.textContent = `🚫 High Risk (Score: ${score}/100)`;
+                        } else if (score > 30) {
+                            badge.style.backgroundColor = "var(--warning-amber)";
+                            badge.style.color = "#333";
+                            badge.textContent = `⚠️ Medium Risk (Score: ${score}/100)`;
+                        } else {
+                            badge.style.backgroundColor = "var(--success-teal)";
+                            badge.textContent = `✅ Low Risk (Score: ${score}/100)`;
+                        }
+
+                    } catch (e) {
+                        // Fallback: If AI returns plain text instead of JSON
+                        console.warn("AI returned plain text, falling back.");
+                        document.getElementById('scamType').textContent = "Analysis";
+                        document.getElementById('recommendation').textContent = "See details below";
+                        document.getElementById('detailedExplanation').textContent = response.text;
+                        document.getElementById('riskBadge').style.backgroundColor = "var(--primary-teal)";
+                        document.getElementById('riskBadge').textContent = "Analysis Complete";
+                    }
                 } else {
-                    flowiseOutput.innerText = "No response received from the AI. Please try again.";
+                    document.getElementById('detailedExplanation').textContent = "No response received. Please try again.";
                 }
                 
                 resultsContainer.style.display = 'block';
